@@ -1,5 +1,12 @@
 """
-Script to download images from INaturalist
+Script to download images from iNaturalist website
+
+Modify main below to select which taxon id to download images of
+
+Outputs organized into:
+images/<folder_name>/jpg/
+images/<folder_name>/png/
+images/<folder_name>/metadata/
 """
 
 from PIL import Image
@@ -74,11 +81,11 @@ if __name__ == "__main__":
     numImages = 200
 
     # Download images for each class
-    download_images(folderName="bee",    taxon_id=630955, per_page=numImages);
-    download_images(folderName="spider", taxon_id=47118,  per_page=numImages);
-    download_images(folderName="wasp",   taxon_id=52747,  per_page=numImages);
-    download_images(folderName="beetle", taxon_id=47208,  per_page=numImages);
-    download_images(folderName="moth",   taxon_id=47157,  per_page=numImages);
+    download_images(folderName="bee",    taxon_id=630955, per_page=numImages)
+    download_images(folderName="spider", taxon_id=47118,  per_page=numImages)
+    download_images(folderName="wasp",   taxon_id=52747,  per_page=numImages)
+    download_images(folderName="beetle", taxon_id=47208,  per_page=numImages)
+    download_images(folderName="moth",   taxon_id=47157,  per_page=numImages)
 
 
 
