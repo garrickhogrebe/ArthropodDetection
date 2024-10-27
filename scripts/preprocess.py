@@ -35,10 +35,10 @@ def preprocess_images(dataset_dir, img_size=(224, 224), batch_size=32, validatio
     return train_dataset, validation_dataset, num_classes
 
 if __name__ == "__main__":
-    dataset_dir = 'data'
+    dataset_dir = '../data/images'
 
     # Preprocess the images and get training/validation datasets
-    train_dataset, validation_dataset = preprocess_images(dataset_dir)
+    train_dataset, validation_dataset, num_classes = preprocess_images(dataset_dir)
 
     # Output the class names and some dataset information
     
