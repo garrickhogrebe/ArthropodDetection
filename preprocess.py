@@ -23,16 +23,16 @@ def preprocess_images(dataset_dir, img_size=(224, 224), batch_size=32, validatio
         batch_size=batch_size
     )
 
+    num_classes = len(train_dataset.class_names)
     print("Class names:", train_dataset.class_names)
 
     # Normalize pixel values to [0, 1] range
     normalization_layer = tf.keras.layers.Rescaling(1./255)
-
     # Apply normalization to the datasets
     train_dataset      = train_dataset.map(lambda x, y: (normalization_layer(x), y))
     validation_dataset = validation_dataset.map(lambda x, y: (normalization_layer(x), y))
 
-    return train_dataset, validation_dataset
+    return train_dataset, validation_dataset, num_classes
 
 if __name__ == "__main__":
     dataset_dir = 'data'
