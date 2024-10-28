@@ -21,10 +21,10 @@ This project implements a deep learning model using TensorFlow to classify vario
 ## GPU Prerequisites (NOT REQUIRED)
 
 This project uses **TensorFlow 2.10**
+
 For **TensorFlow 2.10** with GPU, install **CUDA 11.2** and **cuDNN 8.1**.
 Without GPU support it is still possible to run on CPU, it will just be slower.
-
-use **`verify.py`** to check if GPU support is properly configured
+Use **`verify.py`** to check if GPU support is properly configured
 
 Check [TensorFlow's compatibility guide](https://www.tensorflow.org/install/source#gpu) for details.
 
