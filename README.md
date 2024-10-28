@@ -45,7 +45,7 @@ Check [TensorFlow's compatibility guide](https://www.tensorflow.org/install/sour
 
 Install CUDA and cuDNN from [NVIDIA](https://developer.nvidia.com/cuda-toolkit). TensorFlow should auto-detect the GPU if configured.
 
-1. **Clone the Repository**:
+### 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/username/ArthropodDetection.git
    ```
@@ -53,13 +53,13 @@ Install CUDA and cuDNN from [NVIDIA](https://developer.nvidia.com/cuda-toolkit).
    cd ArthropodDetection
    ```
 
-2. **Install Dependencies**:
+### 2. **Install Dependencies**:
    Install the required Python libraries by running:
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **Verify TensorFlow and GPU** (Optional):
+### 4. **Verify TensorFlow and GPU** (Optional):
    Run `verify.py` to confirm that TensorFlow is installed and can access the GPU:
    ```bash
    cd scripts
@@ -83,10 +83,10 @@ python model2.py
 ```
 
 ### 3. Evaluate and Visualize
-Open `ModelEvaluater.ipynb` in Jupyter Notebook to run detailed evaluations, including confusion matrix and classification report, and to visualize sample predictions with overlays.
+Open `ModelEvaluater.ipynb` in Jupyter Notebook to evaluate the model and generate reports
 
 ## Example Notebook
-`ModelEvaluater.ipynb` contains step-by-step instructions for evaluating the model, generating metrics, and visualizing predictions. Open this notebook in Jupyter to explore model performance in detail.
+`ModelEvaluater.ipynb` contains step-by-step instructions for evaluating the model, generating metrics, and visualizing predictions. Open this notebook in Jupyter to explore model performance.
 
 ## License
 This project is licensed under the MIT License.
