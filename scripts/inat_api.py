@@ -4,9 +4,7 @@ Script to download images from iNaturalist website
 Modify main below to select which taxon id to download images of
 
 Outputs organized into:
-images/<folder_name>/jpg/
-images/<folder_name>/png/
-images/<folder_name>/metadata/
+
 """
 
 from PIL import Image
@@ -18,8 +16,8 @@ import math
 # Function to download bee images and save them in the appropriate folder structure
 def download_images(class_name, taxon_id, num_images=200, per_page=50):
     # Define folder paths
-    jpg_folder      = f'outputNew/images/{class_name}'
-    metadata_folder = f'outputNew/metadata/{class_name}'
+    jpg_folder      = f'../output/images/{class_name}'
+    metadata_folder = f'../output/metadata/{class_name}'
 
     # Create directories if they don't exist
     os.makedirs(jpg_folder, exist_ok=True)
@@ -81,11 +79,10 @@ if __name__ == "__main__":
     num_image = 10000
 
     # Download images for each class
-    download_images(class_name="bee",    taxon_id=630955, num_images=num_image)
-    download_images(class_name="spider", taxon_id=47118,  num_images=num_image)
-    download_images(class_name="wasp",   taxon_id=52747,  num_images=num_image)
-    download_images(class_name="beetle", taxon_id=47208,  num_images=num_image)
-    download_images(class_name="moth",   taxon_id=47157,  num_images=num_image)
+    download_images(class_name="myriapod",   taxon_id=144128, num_images=num_image)
+    download_images(class_name="crustacean", taxon_id=85493, num_images=num_image)
+    download_images(class_name="insect",     taxon_id=47158, num_images=num_image)
+    download_images(class_name="arachnid",   taxon_id=47119, num_images=num_image)
 
 
 
