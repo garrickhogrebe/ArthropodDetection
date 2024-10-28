@@ -1,10 +1,16 @@
 """
-Script to download images from iNaturalist website
+inat_api.py
 
-Modify main below to select which taxon id to download images of
+This script interacts with the iNaturalist API to download images and associated metadata.
+The images and metadata are organized in a directory structure that separates images by class and saves metadata in JSON format.
+It is intended to be used for preparing datasets for machine learning classification tasks.
 
-Outputs organized into:
+Usage:
+    To download images, simply run the script. By default, it downloads images of bees, spiders, wasps, beetles, and moths.
+    Modify the parameters as needed to adjust class names, taxon IDs, and the number of images to download.
 
+Example:
+    python inat_api.py
 """
 
 from PIL import Image
@@ -14,16 +20,28 @@ import json
 import math
 
 # Function to download bee images and save them in the appropriate folder structure
-def download_images(class_name, taxon_id, num_images=200, per_page=50):
+def download_images(class_name, taxon_id, output_folder="../output", num_images=200, per_page=50):
+    """
+    Downloads images and metadata for a specific class from the iNaturalist API.
+
+    Args:
+        class_name (str): Name of the class to be used in folder names (e.g., "bee").
+        taxon_id (int): The iNaturalist taxon ID corresponding to the class.
+        output_folder (str): Base folder to save downloaded images and metadata.
+        num_images (int): Total number of images to download.
+        per_page (int): Number of images to request per API call (limited by iNaturalist).
+
+    The images are saved in "output_folder/images/class_name", and metadata is saved in "output_folder/metadata/class_name".
+    """
+
     # Define folder paths
-    jpg_folder      = f'../output/images/{class_name}'
-    metadata_folder = f'../output/metadata/{class_name}'
+    jpg_folder      = os.path.join(output_folder, "images", class_name)
+    metadata_folder = os.path.join(output_folder, "metadata", class_name)
 
     # Create directories if they don't exist
     os.makedirs(jpg_folder, exist_ok=True)
     os.makedirs(metadata_folder, exist_ok=True)
-
-    
+   
     num_pages  = math.ceil(num_images/per_page)
     page       = num_pages + 1
     
@@ -41,7 +59,7 @@ def download_images(class_name, taxon_id, num_images=200, per_page=50):
 
         data = response.json()
 
-        # Download images and convert to PNG, save metadata
+        # Download images, save metadata
         for i, result in enumerate(data['results']):
             if 'photos' in result:
                 for photo in result['photos'][:1]:
@@ -76,13 +94,15 @@ def download_images(class_name, taxon_id, num_images=200, per_page=50):
                 print(f"Saved metadata: {metadata_file_path}")
 
 if __name__ == "__main__":
-    num_image = 10000
+    num_images     = 10000
+    output_folder = "../output"
 
     # Download images for each class
-    download_images(class_name="myriapod",   taxon_id=144128, num_images=num_image)
-    download_images(class_name="crustacean", taxon_id=85493, num_images=num_image)
-    download_images(class_name="insect",     taxon_id=47158, num_images=num_image)
-    download_images(class_name="arachnid",   taxon_id=47119, num_images=num_image)
+    download_images(class_name="bee",    output_folder=output_folder, taxon_id=630955, num_images=num_images)
+    download_images(class_name="spider", output_folder=output_folder, taxon_id=47118,  num_images=num_images)
+    download_images(class_name="wasp",   output_folder=output_folder, taxon_id=52747,  num_images=num_images)
+    download_images(class_name="beetle", output_folder=output_folder, taxon_id=47208,  num_images=num_images)
+    download_images(class_name="moth",   output_folder=output_folder, taxon_id=47157,  num_images=num_images)
 
 
 
