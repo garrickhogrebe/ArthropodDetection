@@ -13,12 +13,37 @@ This project implements a deep learning model using TensorFlow to classify vario
 
 - **`inat_api.py`**: Script to download images and metadata for specified taxa from the iNaturalist API.
 - **`preprocess.py`**: Contains functions to create normalized datasets for training and validation.
-- **`model.py`** & **`model2.py`**: Scripts for building, training, and saving the model using TensorFlow.
+- **`model.py`**: Scripts for building, training, and saving the model using TensorFlow.
 - **`verify.py`**: Script to verify TensorFlow installation and GPU access.
 - **`jupyterUtils.py`**: Utility functions and classes for Jupyter notebooks, including a progress bar and image prediction functions.
 - **`ModelEvaluater.ipynb`**: Jupyter Notebook for evaluating the model with metrics and sample visualizations.
 
+## GPU Prerequisites (NOT REQUIRED)
+
+This project uses **TensorFlow 2.10**
+For **TensorFlow 2.10** with GPU, install **CUDA 11.2** and **cuDNN 8.1**.
+Without GPU support it is still possible to run on CPU, it will just be slower.
+
+use **`verify.py`** to check if GPU support is properly configured
+
+Check [TensorFlow's compatibility guide](https://www.tensorflow.org/install/source#gpu) for details.
+
+Install CUDA and cuDNN from [NVIDIA](https://developer.nvidia.com/cuda-toolkit). TensorFlow should auto-detect the GPU if configured.
+
+
+
 ## Setup and Installation
+### GPU Prerequisites (NOT REQUIRED)
+
+This project uses **TensorFlow 2.10**
+For **TensorFlow 2.10** with GPU, install **CUDA 11.2** and **cuDNN 8.1**.
+Without GPU support it is still possible to run on CPU, it will just be slower.
+
+use **`verify.py`** to check if GPU support is properly configured
+
+Check [TensorFlow's compatibility guide](https://www.tensorflow.org/install/source#gpu) for details.
+
+Install CUDA and cuDNN from [NVIDIA](https://developer.nvidia.com/cuda-toolkit). TensorFlow should auto-detect the GPU if configured.
 
 1. **Clone the Repository**:
    ```bash
