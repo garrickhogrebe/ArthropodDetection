@@ -77,9 +77,9 @@ python inat_api.py
 ```
 
 ### 2. Train the Model
-Train the model using either `model.py`:
+Train the model `model.py`:
 ```bash
-python model2.py
+python model.py
 ```
 
 ### 3. Evaluate and Visualize
