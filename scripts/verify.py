@@ -15,7 +15,7 @@ import tensorflow as tf
 print("TensorFlow version:", tf.__version__)
 
 # Check if GPU is available
-if tf.test.is_gpu_available():
+if len(tf.config.list_physical_devices('GPU')) > 0:
     print("TensorFlow has access to the GPU")
     print("GPU device:", tf.test.gpu_device_name())
 else:
