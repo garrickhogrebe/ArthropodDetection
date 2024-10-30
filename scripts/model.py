@@ -61,7 +61,7 @@ def build_and_train_model(dataset_dir, model_path, learning_rate=0.001, num_extr
 
     efficientnet_url = "https://www.kaggle.com/models/tensorflow/efficientnet/TensorFlow2/b0-feature-vector/1"
     pretrained_model = tf.keras.Sequential([
-        hub.KerasLayer(efficientnet_url, trainable=False)  # Set trainable=True if you want to fine-tune
+        hub.KerasLayer(efficientnet_url, trainable=False)
     ])
 
     # Build the model
