@@ -12,12 +12,15 @@ Example:
 """
 
 import tensorflow as tf
+import tensorflow_hub as hub
 from tensorflow.keras import layers, models
 from tensorflow.keras.optimizers import Adam
 from preprocess import create_normalized_dataset
+import json
+import os
 import math
 
-def build_and_train_model(dataset_dir, model_path, epochs=10, batch_size=32):
+def build_and_train_model(dataset_dir, model_path, learning_rate=0.001, num_extra_layers=1, epochs=10, batch_size=32):
     """
     Builds a transfer learning model with EfficientNet as the base, adds dense layers, 
     trains it on the provided dataset, and evaluates the model's accuracy.
@@ -56,24 +59,25 @@ def build_and_train_model(dataset_dir, model_path, epochs=10, batch_size=32):
     class_labels = train_dataset.class_names
     num_classes  = len(class_labels)
 
-    # Load pre-trained EfficientNet and freeze layers
-    pretrained_model           = tf.keras.models.load_model(model_path)
-    pretrained_model.trainable = False
-
-    # Build the model
-    model              = models.Sequential([
-        pretrained_model,
-        layers.Dense(128, activation='relu'),
-        layers.Dense(num_classes, activation='softmax')
+    efficientnet_url = "https://www.kaggle.com/models/tensorflow/efficientnet/TensorFlow2/b0-feature-vector/1"
+    pretrained_model = tf.keras.Sequential([
+        hub.KerasLayer(efficientnet_url, trainable=False)  # Set trainable=True if you want to fine-tune
     ])
 
-    model.compile(optimizer  = Adam(learning_rate=0.001),
+    # Build the model
+    model = models.Sequential()
+    model.add(pretrained_model)
+
+    # Dynamically add Dense layers
+    for _ in range(num_extra_layers):
+        model.add(layers.Dense(128, activation='relu'))
+
+    # Add the final output layer
+    model.add(layers.Dense(num_classes, activation='softmax'))
+
+    model.compile(optimizer  = Adam(learning_rate=learning_rate),
                   loss       = 'sparse_categorical_crossentropy',
                   metrics    = ['sparse_categorical_accuracy'])
-
-    # Calculate steps per epoch for consistent training
-    train_dataset_size = sum(1 for _ in train_dataset)
-    steps_per_epoch    = math.ceil(train_dataset_size / batch_size)
 
     # Train the model
     history = model.fit(
@@ -83,7 +87,7 @@ def build_and_train_model(dataset_dir, model_path, epochs=10, batch_size=32):
     )
 
     # Evaluate the model on the validation set
-    val_loss, val_acc = model.evaluate(validation_dataset)
+    _, val_acc = model.evaluate(validation_dataset)
 
     # Store class labels in the model for reference
     model.class_names = class_labels
@@ -94,13 +98,15 @@ if __name__ == "__main__":
     # Paths and settings
     dataset_dir       = '../data/images'
     model_path        = "../models/pretrained/efficientnet-tensorflow2"
-    output_model_path = '../models/Arthropod2'
+    output_model_path = f'../models/BasicArthropodClassifier'
 
     # Build, train, and evaluate the model
     model, history, val_acc = build_and_train_model(dataset_dir, model_path)
 
     # Save the trained model
     model.save(output_model_path)
+    with open(os.path.join(output_model_path, "class_names.json"), "w") as file:
+        json.dump(model.class_names, file)
 
     # Output training and validation results
     print("Training accuracy per epoch:", history['sparse_categorical_accuracy'])
