@@ -5,7 +5,7 @@ This script builds a transfer learning model using a pre-trained EfficientNet mo
 The model and training accuracy results are saved for later use.
 
 Usage:
-    To run this script directly, ensure the required data directory structure is present and the specified pre-trained model path is accessible. Adjust paths as needed for your environment.
+    To run this script directly ensure the required data directory structure is present. Adjust paths as needed for your environment.
 
 Example:
     python model.py
